@@ -1,0 +1,12 @@
+node_modules
+.serverless
+
+# Build
+.esbuild
+
+# Environment files
+.env
+
+# Dev Stuff
+notes.md
+tasks.md

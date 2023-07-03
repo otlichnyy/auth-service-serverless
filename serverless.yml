@@ -1,0 +1,28 @@
+service: learn-express-api-serverless
+frameworkVersion: "3"
+
+provider:
+    name: aws
+    runtime: nodejs16.x
+    environment:
+        NODE_OPTIONS: "--enable-source-maps"
+        COGNITO_CLIENT_SECRET: "3g30nuq1oe0llsbe24kjgdrn67ksicq3aejpi9vm198ul234ijk"
+        COGNITO_CLIENT_ID: "41gig9vh30jsoc1e4ir6iuvmie"
+        COGNITO_ISSUER_URL: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_JQhZLbfKu/.well-known/jwks.json"
+
+custom:
+    esbuild:
+        bundle: true
+        minify: false
+        sourcemap: inline
+
+functions:
+    api:
+        handler: src/api.handler
+        events:
+            - httpApi: "*"
+
+plugins:
+    - serverless-esbuild
+    - serverless-offline
+    - serverless-lift
