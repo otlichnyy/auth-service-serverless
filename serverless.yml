@@ -4,6 +4,13 @@ frameworkVersion: "3"
 provider:
     name: aws
     runtime: nodejs16.x
+    iam:
+        role:
+            statements:
+                - Effect: "Allow"
+                  Action:
+                      - "cognito-idp:AdminInitiateAuth"
+                  Resource: "arn:aws:cognito-idp:us-east-1:041529434630:userpool/us-east-1_JQhZLbfKu"
     environment:
         NODE_OPTIONS: "--enable-source-maps"
         COGNITO_USER_POOL_ID: "us-east-1_JQhZLbfKu"
