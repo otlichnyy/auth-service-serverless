@@ -4,6 +4,7 @@ import express from "express";
 import httpStatus from "http-status";
 import ApiError from "./utils/ApiError";
 import { customErrorHandler, errorConvertor } from "./middleware/Error";
+import * as controller from "./controller/cognito";
 
 // initialize the express app
 const app = express();
@@ -14,23 +15,13 @@ app.use(express.json());
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", async (_, res) => {
-    return res.status(200).json({
-        message: "Hello from root!",
-        cognitoIssuer: process.env.COGNITO_ISSUER_URL || ""
-    });
-});
-
-app.get("/path", (_, res) => {
-    return res.status(200).json({
-        message: "Hello from path!"
-    });
-});
-
-app.get("/error", () => {
-    // proper source-map-support
-    throw new Error("MEH!!");
-});
+app.post("/signup", controller.signup);
+app.post("/confirm", controller.confirm);
+app.post("/resend-confirm", controller.resendConfirmationCode);
+app.post("/login", controller.login);
+app.post("/forgot", controller.forgot);
+app.post("/reset-password", controller.resetPassword);
+app.post("/refresh", controller.refreshTokens);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
