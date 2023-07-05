@@ -13,6 +13,7 @@ provider:
                   Resource: "arn:aws:cognito-idp:us-east-1:041529434630:userpool/us-east-1_JQhZLbfKu"
     environment:
         NODE_OPTIONS: "--enable-source-maps"
+        NODE_ENV: ${sls:stage}
         COGNITO_USER_POOL_ID: "us-east-1_JQhZLbfKu"
         COGNITO_CLIENT_SECRET: "3g30nuq1oe0llsbe24kjgdrn67ksicq3aejpi9vm198ul234ijk"
         COGNITO_CLIENT_ID: "41gig9vh30jsoc1e4ir6iuvmie"
