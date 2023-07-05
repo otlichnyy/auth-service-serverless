@@ -15,7 +15,7 @@ const errorConvertor: ErrorRequestHandler = (err: Error, _, __, next) => {
 const customErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     let { statusCode, message } = err as ApiError;
 
-    if (process.env.NODE_ENV === "production" && !err.isOperational) {
+    if (process.env.NODE_ENV === "prod" && !err.isOperational) {
         statusCode = httpStatus.INTERNAL_SERVER_ERROR;
         message = String(httpStatus[httpStatus.INTERNAL_SERVER_ERROR]);
     }
@@ -25,7 +25,7 @@ const customErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     const errorResponse = {
         statusCode,
         message,
-        path: err.stack
+        path: process.env.NODE_ENV === "dev" ? err.stack : ""
     };
 
     // const errorResponse = {

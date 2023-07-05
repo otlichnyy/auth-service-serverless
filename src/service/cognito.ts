@@ -1,4 +1,6 @@
+import ApiError from "../utils/ApiError";
 import { cognitoClient, cognitoClientId, cognitoUserPoolId, hashSecret } from "./client";
+import httpStatus from "http-status";
 
 /**
  * Signup user
@@ -94,6 +96,8 @@ export const login = async (username: string, password: string) => {
         return data;
     } catch (error) {
         console.error(error);
+        if (error.code === "NotAuthorizedException")
+            throw new ApiError(httpStatus.UNAUTHORIZED, "Incorrect username or password");
         throw new Error(error);
     }
 };
